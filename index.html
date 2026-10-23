@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#faf5ef">
+  <meta name="description" content="Калькулятор для HR: расходы на источники и стоимость времени HR, руководителя и собственника. Готовый расчёт для обсуждения с бизнесом.">
+  <title>Цена найма — калькулятор для HR</title>
+  <link rel="icon" type="image/png" href="./Элегантный изумрудный монограммный логотип ОВ.png">
+  <style>
+:root{color-scheme:light;--bg:#faf5ef;--panel:#fffdfa;--input:#faf8f4;--text:#243e35;--muted:#68786d;--line:#e5e7df;--accent:#087257;--accent-dark:#075b45;--error:#a43b45}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 100% 0%,#f5ded5aa,transparent 40%),var(--bg);color:var(--text);font:15px/1.5 Arial,sans-serif}
+button,input,textarea{font:inherit}
+button,summary{cursor:pointer}
+button:disabled{cursor:default;opacity:.42}
+input,textarea{width:100%;min-width:0;background:var(--input);border:1px solid #dfe4d9;border-radius:11px;color:var(--text);padding:12px 13px;outline-offset:3px;transition:border-color .15s,box-shadow .15s}
+input::placeholder{color:#8a948c}
+input:focus,textarea:focus{border-color:var(--accent);outline:2px solid #08725720;background:#fff}
+input[aria-invalid=true]{border-color:var(--error)}
+button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+h1,h2,h3,p{margin:0}
+strong{font-weight:600}
+.page{width:100%;max-width:960px;margin:0 auto;padding:27px 24px 0}
+.brand-header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:26px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#476551;font-size:11px;font-weight:600;letter-spacing:.7px;background:#eaf0e6;border-radius:30px;padding:8px 13px;white-space:nowrap}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:43px;height:43px;filter:drop-shadow(0 3px 5px #0e634218)}
+.logo-slot{display:grid;place-items:center;flex-shrink:0;width:43px;height:43px;border:1px dashed #a6b8a1;border-radius:12px;background:#eef0e7;color:#6d7e66;font-size:10px}
+.brand h1{font-family:'Trebuchet MS',Arial,sans-serif;font-size:26px;line-height:1.15;letter-spacing:-1px;font-weight:700}
+.brand h1 span{color:var(--accent)}
+.subtitle{color:#637567;font-size:15px;line-height:1.75}
+.banner{position:relative;display:grid;grid-template-columns:1.1fr 1fr;width:100%;min-height:328px;border:1px solid #e5e6da;border-radius:24px;overflow:hidden;margin-bottom:28px;background:#f0eee3;box-shadow:0 8px 30px #75674306}
+.banner-copy{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:15px;padding:35px 20px 35px 38px;background:linear-gradient(110deg,#eff1e5,#f5eee2)}
+.banner-kicker{color:#617a64;text-transform:uppercase;font-size:10px;letter-spacing:1.8px;font-weight:600}
+.banner-copy h2{font-family:'Trebuchet MS',Arial,sans-serif;font-size:43px;line-height:1.1;font-weight:700;letter-spacing:-1.6px}
+.banner-copy h2 em{font-style:normal;color:var(--accent);position:relative;isolation:isolate}
+.banner-copy h2 em::after{content:'';position:absolute;z-index:-1;bottom:0;left:-2px;right:-4px;height:11px;background:#eed1c7;border-radius:50% 24% 36% 20%;transform:rotate(-2deg)}
+.banner-caption{display:flex;align-items:center;gap:8px;font-size:11px;color:#56745f;margin-top:1px}
+.banner-art{position:relative;min-width:0;overflow:hidden;background:#e8dfd3}
+.banner-art img{display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:50% 35%}
+.banner-art::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#f5eee2,transparent 13%);pointer-events:none}
+.visual-slot{display:grid;place-items:center;min-height:240px;background:#f3e8e0;padding:24px}
+.visual-slot::after{display:none}
+.visual-slot-label{width:100%;min-height:200px;border:1px dashed #bdafa1;border-radius:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;padding:18px;text-align:center;color:#6c7260}
+.visual-slot-label span{font-size:14px}
+.visual-slot-label small{font-size:11px;color:#777c70}
+.calculator-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:24px;align-items:start}
+.inputs-column{display:grid;gap:20px;min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 5px 18px #35442b03}
+.section-heading{display:flex;gap:12px;align-items:center;margin-bottom:21px}
+.step{display:grid;place-items:center;width:34px;height:34px;font-size:11px;line-height:1;color:#8b5c55;border-radius:11px;flex-shrink:0;background:#f6e4dc}
+.section-heading h2{font-family:'Trebuchet MS',Arial,sans-serif;font-size:19px;letter-spacing:-.35px;font-weight:700}
+.section-heading p{font-size:12px;color:var(--muted);margin-top:3px}
+.source-fields{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.field{display:flex;flex-direction:column;gap:7px;font-size:12px;color:#53675a}
+.input-wrap{position:relative;display:block}
+.input-wrap input{padding-right:35px}
+.unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#7c8b7e;font-size:14px;pointer-events:none}
+.field-error{display:block;min-height:0;color:var(--error);font-size:11px;line-height:1.35}
+.field-error:empty{display:none}
+.person-row{display:grid;grid-template-columns:1.05fr .8fr 1.2fr;gap:12px;align-items:start;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #eaede5}
+.person-label{display:flex;gap:8px;align-items:center;padding-top:33px;min-width:0}
+.person-label h3{font-size:12px;font-weight:500;overflow-wrap:anywhere}
+.person-symbol{display:grid;place-items:center;flex-shrink:0;width:25px;height:25px;background:#e8efe4;color:#456751;border-radius:8px;font-size:11px}
+.person-row:has(#hr-hours),.person-row:has(#owner-hours){grid-template-columns:1.05fr .8fr 1.2fr}
+.person-row:has(#hr-hours),.person-row:has(#owner-hours){grid-template-columns:1fr 1fr}
+.person-row input{padding:11px 10px;font-variant-numeric:tabular-nums}
+.input-note{font-size:11px;line-height:1.6;color:var(--muted);margin-top:1px}
+.hours-base{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;margin-top:20px;padding:16px;background:#f0f3eb;border-radius:12px}
+.hours-base input{background:#fffefa}
+.hours-base p{font-size:11px;line-height:1.65;color:var(--muted);padding-top:15px}
+.time-help{margin-top:18px;font-size:12px;color:var(--muted)}
+summary{width:fit-content;font-size:12px;color:#3d6a51;line-height:1.6}
+details p{margin-top:10px;line-height:1.65}
+.result-column{position:sticky;top:22px;min-width:0}
+.result-panel{border-color:#cdddc9;background:linear-gradient(145deg,#f1f6ed,#e7efdf);box-shadow:0 8px 26px #52694c08}
+.result-eyebrow{display:flex;align-items:center;gap:9px;color:#3c6c4e;text-transform:uppercase;letter-spacing:1px;font-size:11px;font-weight:600}
+.result-total{font-family:'Trebuchet MS',Arial,sans-serif;color:#116447;font-size:42px;font-weight:700;letter-spacing:-1.6px;line-height:1.25;margin:19px 0 6px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.result-total span{font-family:Arial,sans-serif;font-size:25px;color:#527b5d;letter-spacing:0}
+.result-status{font-size:12px;color:#65765f;min-height:36px}
+.result-status.invalid{color:var(--error)}
+.result-divider{height:1px;background:#d4dfcb;margin:21px 0 13px}
+.cost-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:9px 0;font-size:13px}
+.cost-row strong,.cost-row>span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+.time-total{padding-bottom:10px}
+.participant-costs{padding-left:13px;border-left:2px solid #b9ccb2;margin:0 0 23px 2px}
+.participant-costs .cost-row{font-size:11px;color:#60735f;padding:5px 0}
+.primary-button{width:100%;min-height:46px;display:flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:11px;background:var(--accent);color:#fffdfa;padding:14px 12px;font-size:13px;font-weight:600;box-shadow:0 5px 12px #0b6c4e16;transition:background .15s,transform .15s}
+.primary-button:hover:not(:disabled){background:var(--accent-dark);transform:translateY(-1px)}
+.copy-caption{text-align:center;font-size:10px;color:#61765c;margin:10px 4px 0;line-height:1.65}
+.copy-status{font-size:12px;color:var(--accent-dark);margin-top:10px}
+.copy-status:empty{display:none}
+#copy-fallback{margin-top:14px}
+.method-note{display:flex;align-items:flex-start;gap:10px;padding:18px 3px;font-size:11px;line-height:1.7;color:var(--muted)}
+.note-icon{display:grid;place-items:center;width:15px;height:15px;flex-shrink:0;border-radius:50%;border:1px solid #8b9d86;font-size:10px;margin-top:2px}
+.formula-note{padding:0 3px;font-size:11px;color:var(--muted)}
+footer{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:37px;padding:23px 0 27px;border-top:1px solid #e2e4d9;font-size:11px;color:#71806e}
+footer>span:first-child{color:#396b4e;font-weight:600}
+.footer-note{font-size:10px}
+/* Подключённые изображения и окно ИИ-помощника */
+.logo{width:82px;height:70px;object-fit:contain;flex-shrink:0;filter:none}
+body{padding-bottom:88px}
+.ai-launcher{position:fixed;right:24px;bottom:24px;z-index:1000;display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;max-width:calc(100vw - 32px);padding:13px 20px;border:1px solid #d1e3d8;border-radius:30px;background:var(--accent);color:#fffdfa;font-size:14px;font-weight:600;box-shadow:0 6px 25px #17453425;transition:background .15s,transform .15s}
+.ai-launcher:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.ai-launcher-symbol{color:#f3cabc;font-size:23px;line-height:1}
+.ai-panel{position:fixed;right:24px;bottom:90px;z-index:1001;display:flex;flex-direction:column;width:400px;max-width:calc(100vw - 32px);height:640px;max-height:calc(100vh - 112px);max-height:calc(100dvh - 112px);overflow:hidden;border:1px solid #d4dfd2;border-radius:18px;background:#fffdfa;box-shadow:0 12px 45px #20463030}
+.ai-panel[hidden]{display:none}
+.ai-panel-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;min-height:66px;padding:13px 14px 13px 18px;background:#edf3e8;border-bottom:1px solid #dce6d6}
+.ai-panel-title{font-size:15px;font-weight:600;color:#23543c}
+.ai-panel-subtitle{font-size:11px;color:#60775f;margin-top:2px}
+.ai-close{display:grid;place-items:center;flex-shrink:0;width:40px;height:40px;border:0;border-radius:11px;background:#fffaf3;color:#315a40;font-size:27px;line-height:1}
+.ai-close:hover{background:#f5e3da}
+.ai-panel-body{flex:1;min-height:0;background:#fff}
+.ai-panel-body iframe{display:block;width:100%;height:100%!important;border:0;background:#fff}
+
+
+
+/* Адаптация: узкая страница на компьютере, один столбец на телефоне */
+input,textarea{font-size:16px;min-height:46px}
+.panel,.banner-copy,.person-row,.field{min-width:0}
+.banner-copy h2{font-size:38px}
+.result-total{font-size:clamp(32px,4.5vw,42px)}
+.cost-row{flex-wrap:wrap;row-gap:3px}
+.copy-caption{font-size:11px}
+.ai-close{width:44px;height:44px}
+@media(max-width:1000px) and (min-width:801px){
+  .calculator-grid{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px}
+  .panel{padding:20px}
+  .person-row{grid-template-columns:1fr 1fr}
+  .person-row:has(#hr-hours),.person-row:has(#owner-hours){grid-template-columns:1fr 1fr}
+  .person-label{grid-column:1/-1;padding-top:0}
+  .banner-copy{padding:30px}
+  .banner-copy h2{font-size:35px}
+  .result-total{font-size:36px}
+}
+@media(max-width:800px){
+  .page{padding:22px 20px 0}
+  .calculator-grid{grid-template-columns:minmax(0,1fr);gap:20px}
+  .result-column{position:static}
+  .result-total{font-size:42px}
+  .result-status{min-height:0}
+  .banner{min-height:280px}
+  .banner-copy{padding:27px}
+  .banner-copy h2{font-size:34px}
+  .subtitle{font-size:14px}
+  .person-row{grid-template-columns:1fr .9fr 1.2fr}
+  .person-row:has(#hr-hours),.person-row:has(#owner-hours){grid-template-columns:1fr .9fr 1.2fr}
+  .person-label{grid-column:auto;padding-top:33px}
+  .primary-button{min-height:48px;font-size:14px}
+  summary{min-height:44px;padding:10px 0}
+}
+@media(max-width:640px){
+  .page{padding:18px 16px 0}
+  .brand-header{flex-wrap:wrap;gap:10px 14px;margin-bottom:18px}
+  .brand{gap:8px}
+  .brand h1{font-size:25px;white-space:nowrap}
+  .logo{width:68px;height:58px}
+  .eyebrow{font-size:10px;padding:6px 10px;letter-spacing:.3px}
+  .banner{grid-template-columns:minmax(0,1fr);min-height:0;border-radius:19px;margin-bottom:20px}
+  .banner-copy{padding:26px;gap:13px}
+  .banner-copy h2{font-size:34px;letter-spacing:-1px}
+  .banner-copy .subtitle{font-size:14px;line-height:1.65}
+  .banner-kicker{font-size:10px;letter-spacing:1.3px}
+  .banner-caption{font-size:11px}
+  .banner-art{height:auto;min-height:0;aspect-ratio:16/9}
+  .banner-art img{position:static;width:100%;height:100%;object-fit:contain;object-position:center}
+  .banner-art::after{display:none}
+  .panel{padding:20px;border-radius:16px}
+  .source-fields{gap:16px 14px}
+  .person-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 14px}
+  .person-row:has(#hr-hours),.person-row:has(#owner-hours){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .person-label{grid-column:1/-1;padding-top:0}
+  .person-label h3{font-size:14px}
+  .field{font-size:12px}
+  .section-heading h2{font-size:19px}
+  .section-heading p{font-size:12px}
+  .result-total{font-size:39px}
+  .input-note{font-size:12px}
+  .hours-base{grid-template-columns:minmax(0,1fr);gap:8px;padding:14px}
+  .hours-base p{padding-top:0;font-size:12px}
+  .time-help,.formula-note,.method-note{font-size:12px}
+  .cost-row{font-size:14px}
+  .participant-costs .cost-row{font-size:12px}
+  .copy-caption{font-size:11px}
+  .ai-launcher{right:16px;bottom:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));min-height:50px;padding:12px 17px}
+  .ai-panel{right:12px;bottom:80px;bottom:calc(80px + env(safe-area-inset-bottom,0px));width:calc(100vw - 24px);max-width:400px;max-height:calc(100vh - 100px);max-height:calc(100dvh - 100px - env(safe-area-inset-bottom,0px))}
+  body{padding-bottom:96px;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  footer{justify-content:center;text-align:center;gap:7px;margin-top:26px}
+  footer p{width:100%}
+}
+@media(max-width:380px){
+  .page{padding-right:12px;padding-left:12px}
+  .panel{padding:17px}
+  .banner-copy{padding:22px}
+  .banner-copy h2{font-size:31px}
+  .source-fields{grid-template-columns:minmax(0,1fr);gap:15px}
+  .result-total{font-size:34px}
+  .ai-panel-header{padding-left:12px;padding-right:10px;gap:8px}
+  .ai-panel-title{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+</style>
+  
+</head>
+<body>
+  <main class="page">
+    <header class="brand-header">
+      <div class="brand"><img class="logo" src="./Элегантный изумрудный монограммный логотип ОВ.png" alt="Логотип ОВ — Ольга Войнова" width="82" height="70"><h1>Цена <span>найма</span></h1></div>
+      <span class="eyebrow"><span class="dot"></span> Инструмент для HR</span>
+    </header>
+
+    <section class="banner" aria-label="Визуальная плашка проекта">
+      <div class="banner-copy"><span class="banner-kicker">Подбор в цифрах</span><h2>Сколько стоит<br>ваш <em>подбор?</em></h2><p class="subtitle">Посчитайте расходы и время команды.<br>Покажите бизнесу конкретные цифры.</p><span class="banner-caption"><span class="dot"></span> Один расчёт. Всё по делу.</span></div>
+      <div class="banner-art"><img src="./Расчёт стоимости найма.png" alt="HR рассчитывает стоимость подбора сотрудников" fetchpriority="high"></div>
+    </section>
+
+    <form id="calculator" novalidate>
+      <div class="calculator-grid">
+        <div class="inputs-column">
+          <section class="panel sources-panel" aria-labelledby="sources-title">
+            <div class="section-heading"><span class="step">01</span><div><h2 id="sources-title">Потрачено денег</h2><p>Расходы на эту вакансию</p></div></div>
+            <div class="source-fields">
+              <label class="field" for="source-hh"><span>hh.ru</span><span class="input-wrap"><input id="source-hh" name="hh" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="error-source-hh"><span class="unit">₽</span></span><small class="field-error" id="error-source-hh"></small></label>
+              <label class="field" for="source-tg"><span>Telegram</span><span class="input-wrap"><input id="source-tg" name="tg" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="error-source-tg"><span class="unit">₽</span></span><small class="field-error" id="error-source-tg"></small></label>
+              <label class="field" for="source-avito"><span>Авито</span><span class="input-wrap"><input id="source-avito" name="avito" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="error-source-avito"><span class="unit">₽</span></span><small class="field-error" id="error-source-avito"></small></label>
+              <label class="field" for="source-other"><span>Иной источник</span><span class="input-wrap"><input id="source-other" name="other" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="error-source-other"><span class="unit">₽</span></span><small class="field-error" id="error-source-other"></small></label>
+            </div>
+          </section>
+
+          <section class="panel time-panel" aria-labelledby="time-title">
+            <div class="section-heading"><span class="step">02</span><div><h2 id="time-title">Потрачено времени</h2><p>Всё время участия в подборе этой вакансии</p></div></div>
+            <div class="person-row"><div class="person-label"><span class="person-symbol">H</span><h3>HR</h3></div><label class="field" for="hr-hours"><span>Время, ч</span><input id="hr-hours" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="error-hr-hours"><small id="error-hr-hours" class="field-error"></small></label></div>
+            <div class="person-row"><div class="person-label"><span class="person-symbol">Р</span><h3>Руководитель</h3></div><label class="field" for="manager-hours"><span>Время, ч</span><input id="manager-hours" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="error-manager-hours"><small id="error-manager-hours" class="field-error"></small></label><label class="field" for="manager-salary"><span>Оклад в месяц, ₽</span><input id="manager-salary" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="error-manager-salary"><small id="error-manager-salary" class="field-error"></small></label></div>
+            <div class="person-row"><div class="person-label"><span class="person-symbol">С</span><h3>Собственник</h3></div><label class="field" for="owner-hours"><span>Время, ч</span><input id="owner-hours" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="error-owner-hours"><small id="error-owner-hours" class="field-error"></small></label></div>
+            <p class="input-note">30 минут = 0,5 часа. Если человек не участвовал, оставьте его строку пустой.</p>
+            <div class="hours-base"><label class="field" for="month-hours"><span>Рабочих часов в месяце</span><input id="month-hours" inputmode="decimal" autocomplete="off" placeholder="Например, 160" aria-describedby="norm-hint error-month-hours"><small id="error-month-hours" class="field-error"></small></label><p id="norm-hint">Общая база для расчёта стоимости часа по окладу.</p></div>
+            <details class="time-help"><summary>Как оценить потраченное время?</summary><p>Сложите время просмотра резюме, интервью, переписки и обсуждений по вакансии. Например, 8 интервью по 40 минут и 2 часа обсуждений — это 7 часов 20 минут, или примерно 7,3333 часа.</p><p>Используйте фактическое время или свою оценку. Указывайте только долю расходов на источники, которая относится к этой вакансии.</p></details>
+          </section>
+        </div>
+
+        <aside class="result-column" aria-label="Результат расчёта">
+          <section class="panel result-panel">
+            <div class="result-eyebrow"><span class="dot"></span> Стоимость подбора</div>
+            <p class="result-total" id="total" aria-live="polite">0,00 <span>₽</span></p>
+            <p id="result-status" class="result-status">Заполните расходы и время участия.</p>
+            <div class="result-divider"></div>
+            <div class="cost-row"><span>Источники</span><strong id="sources-total">0,00 ₽</strong></div>
+            <div class="cost-row time-total"><span>Время команды</span><strong id="labor-total">0,00 ₽</strong></div>
+            <div class="participant-costs"><div class="cost-row"><span>HR</span><span id="hr-cost">0,00 ₽</span></div><div class="cost-row"><span>Руководитель</span><span id="manager-cost">0,00 ₽</span></div><div class="cost-row"><span>Собственник</span><span id="owner-cost">0,00 ₽</span></div></div>
+            <button type="button" id="copy-report" class="primary-button" disabled><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>Скопировать расчёт</button>
+            <p class="copy-caption">Готовый текст для руководителя или собственника</p>
+            <p id="copy-status" class="copy-status" role="status"></p>
+            <div id="copy-fallback" hidden><label class="field" for="report-text"><span>Выделите и скопируйте текст</span><textarea id="report-text" rows="10" readonly></textarea></label></div>
+          </section>
+          <div class="method-note"><span class="note-icon">i</span><p>Итог включает расходы на источники и денежную оценку рабочего времени по окладам.</p></div>
+          <details class="formula-note"><summary>Как считается стоимость?</summary><p>Стоимость времени участника = оклад ÷ рабочие часы месяца × часы участия.</p><p>Итого = расходы на источники + стоимость времени всех участников. Суммы округляются до копеек при отображении.</p></details>
+        </aside>
+      </div>
+    </form>
+    <footer><span>Цена найма</span><p>Готовый расчёт для разговора с бизнесом.</p><button type="button" class="ai-launcher" id="ai-launcher" aria-controls="ai-panel" aria-expanded="false" aria-haspopup="dialog"><span class="ai-launcher-symbol" aria-hidden="true">✦</span><span>HR-помощник</span></button></footer>
+  </main>
+<script>
+(function () {
+  'use strict';
+  const sources = [
+    { id: 'source-hh', label: 'hh.ru' },
+    { id: 'source-tg', label: 'Telegram' },
+    { id: 'source-avito', label: 'Авито' },
+    { id: 'source-other', label: 'Иной источник' }
+  ];
+  const HR_MONTHLY_SALARY = 130000;
+  const OWNER_MONTHLY_SALARY = 250000;
+  const people = [
+    { id: 'hr', label: 'HR' },
+    { id: 'manager', label: 'Руководитель' },
+    { id: 'owner', label: 'Собственник' }
+  ];
+  function parseAmount(raw) {
+    const text = String(raw ?? '').replace(/\s/g, '').replace(',', '.');
+    if (text === '') return { empty: true, value: 0, valid: true };
+    if (!/^\d+(?:\.\d+)?$/.test(text)) return { empty: false, value: 0, valid: false };
+    const value = Number(text);
+    return { empty: false, value, valid: Number.isFinite(value) && value >= 0 };
+  }
+  function calculate(values) {
+    const errors = {};
+    let hasData = false;
+    const read = id => {
+      const result = parseAmount(values[id]);
+      if (!result.valid) errors[id] = 'Введите число от 0.';
+      return result;
+    };
+    const sourceRows = sources.map(source => {
+      const parsed = read(source.id);
+      if (!parsed.empty) hasData = true;
+      return { ...source, value: parsed.value };
+    });
+    const base = read('month-hours');
+    if (!base.empty && base.valid && base.value <= 0) errors['month-hours'] = 'Количество часов должно быть больше 0.';
+    const personRows = people.map(person => {
+      const hours = read(person.id + '-hours');
+      const fixedSalary = person.id === 'hr' || person.id === 'owner';
+      const salary = fixedSalary ? parseAmount(person.id === 'hr' ? HR_MONTHLY_SALARY : OWNER_MONTHLY_SALARY) : read(person.id + '-salary');
+      if (!hours.empty || (!fixedSalary && !salary.empty)) hasData = true;
+      if (!fixedSalary && hours.empty && !salary.empty && salary.valid && salary.value > 0) errors[person.id + '-hours'] = 'Укажите время или 0.';
+      if (hours.valid && hours.value > 0) {
+        if (salary.empty) errors[person.id + '-salary'] = 'Укажите оклад, включая 0.';
+        if (base.empty) errors['month-hours'] = 'Укажите рабочие часы месяца.';
+      }
+      const cost = hours.value > 0 && base.value > 0 ? salary.value / base.value * hours.value : 0;
+      if (!Number.isFinite(cost)) errors[person.id + '-hours'] = 'Проверьте величину введённых значений.';
+      return { ...person, hours: hours.value, salary: salary.value, cost, active: hours.value > 0 };
+    });
+    const sourceTotal = sourceRows.reduce((sum, row) => sum + row.value, 0);
+    const laborTotal = personRows.reduce((sum, row) => sum + row.cost, 0);
+    const total = sourceTotal + laborTotal;
+    if (![sourceTotal, laborTotal, total].every(Number.isFinite)) errors['source-hh'] = 'Проверьте величину введённых значений.';
+    return { valid: Object.keys(errors).length === 0, hasData, errors, sourceRows, personRows, base: base.value, sourceTotal, laborTotal, total };
+  }
+  const money = value => new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value) + ' ₽';
+  const quantity = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 8 }).format(value);
+  function buildReport(state) {
+    if (!state.valid || !state.hasData) return '';
+    const lines = [
+      'ЦЕНА НАЙМА',
+      'Стоимость подбора одной вакансии',
+      '',
+      'РАСХОДЫ НА ИСТОЧНИКИ',
+      ...state.sourceRows.map(row => `${row.label}: ${money(row.value)}`),
+      `Итого источники: ${money(state.sourceTotal)}`,
+      '',
+      'СТОИМОСТЬ ВРЕМЕНИ'
+    ];
+    for (const row of state.personRows) {
+      lines.push(row.active
+        ? `${row.label}: ${quantity(row.hours)} ч; ${row.id !== 'manager' ? '' : `оклад ${money(row.salary)}; `}стоимость времени ${money(row.cost)}`
+        : `${row.label}: 0 ч; стоимость времени ${money(0)}`);
+    }
+    if (state.personRows.some(row => row.active)) lines.push(`База расчёта: ${quantity(state.base)} рабочих часов в месяце.`);
+    lines.push(`Итого время команды: ${money(state.laborTotal)}`, '', `ИТОГО СТОИМОСТЬ ПОДБОРА: ${money(state.total)}`, '', 'Расчёт включает расходы на источники и оценку времени по окладам.');
+    return lines.join('\n');
+  }
+  if (typeof module !== 'undefined' && module.exports) module.exports = { calculate, parseAmount, buildReport };
+  if (typeof document === 'undefined') return;
+  const form = document.getElementById('calculator');
+  if (!form) return;
+  const inputs = [...form.querySelectorAll('input')];
+  const totalEl = document.getElementById('total');
+  const statusEl = document.getElementById('result-status');
+  const copyButton = document.getElementById('copy-report');
+  const copyStatus = document.getElementById('copy-status');
+  let state;
+  function update() {
+    const values = Object.fromEntries(inputs.map(input => [input.id, input.value]));
+    state = calculate(values);
+    inputs.forEach(input => {
+      const error = state.errors[input.id] || '';
+      input.setAttribute('aria-invalid', String(Boolean(error)));
+      document.getElementById('error-' + input.id).textContent = error;
+    });
+    if (state.valid) {
+      totalEl.replaceChildren(document.createTextNode(money(state.total).slice(0, -2)), Object.assign(document.createElement('span'), { textContent: ' ₽' }));
+      document.getElementById('sources-total').textContent = money(state.sourceTotal);
+      document.getElementById('labor-total').textContent = money(state.laborTotal);
+      state.personRows.forEach(row => { document.getElementById(row.id + '-cost').textContent = money(row.cost); });
+      statusEl.textContent = state.hasData ? 'По введённым расходам и времени участия.' : 'Заполните расходы и время участия.';
+    } else {
+      totalEl.textContent = '—';
+      document.getElementById('sources-total').textContent = Object.keys(state.errors).some(key => key.startsWith('source-')) ? '—' : money(state.sourceTotal);
+      document.getElementById('labor-total').textContent = '—';
+      state.personRows.forEach(row => { document.getElementById(row.id + '-cost').textContent = '—'; });
+      statusEl.textContent = 'Уточните поля с подсказками, чтобы получить итог.';
+    }
+    statusEl.classList.toggle('invalid', !state.valid);
+    copyButton.disabled = !state.valid || !state.hasData;
+    copyStatus.textContent = '';
+    document.getElementById('copy-fallback').hidden = true;
+  }
+  form.addEventListener('input', update);
+  form.addEventListener('submit', event => event.preventDefault());
+  copyButton.addEventListener('click', async () => {
+    const text = buildReport(state);
+    if (!text) return;
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(text);
+      copyStatus.textContent = 'Расчёт скопирован. Можно отправить руководителю.';
+    } catch {
+      const reportText = document.getElementById('report-text');
+      reportText.value = text;
+      document.getElementById('copy-fallback').hidden = false;
+      reportText.focus();
+      reportText.select();
+      copyStatus.textContent = 'Скопируйте выделенный текст расчёта.';
+    }
+  });
+  update();
+})();
+
+</script>
+
+  <section class="ai-panel" id="ai-panel" role="dialog" aria-modal="false" aria-labelledby="ai-panel-title" hidden>
+    <header class="ai-panel-header">
+      <div><h2 class="ai-panel-title" id="ai-panel-title">Ольга · HR-помощник</h2><p class="ai-panel-subtitle">Помощь со временем и расчётами</p></div>
+      <button type="button" class="ai-close" id="ai-close" aria-label="Закрыть ИИ-помощника">×</button>
+    </header>
+    <div class="ai-panel-body">
+      <iframe id="ai-frame" title="HR-помощник сервиса Цена найма" allow="microphone;autoplay" style="width:100%;height:100%!important;" data-src="https://functions.pro-talk.ru/api/v1.0/chatgpt_widget_dialog_api?record_id=recrJcVwBtC6qaGFI&amp;promt_id=74820&amp;lang=ru&amp;fullscreen=0&amp;voice=1&amp;prod=1&amp;file=1"></iframe>
+    </div>
+  </section>
+  <script>
+  (function () {
+    'use strict';
+    const launcher = document.getElementById('ai-launcher');
+    const panel = document.getElementById('ai-panel');
+    const closeButton = document.getElementById('ai-close');
+    const frame = document.getElementById('ai-frame');
+    let loaded = false;
+    function openAssistant() {
+      panel.hidden = false;
+      launcher.setAttribute('aria-expanded', 'true');
+      if (!loaded) {
+        frame.src = frame.dataset.src;
+        loaded = true;
+      }
+      closeButton.focus();
+    }
+    function closeAssistant() {
+      panel.hidden = true;
+      launcher.setAttribute('aria-expanded', 'false');
+      launcher.focus();
+    }
+    launcher.addEventListener('click', function () {
+      if (panel.hidden) openAssistant();
+      else closeAssistant();
+    });
+    closeButton.addEventListener('click', closeAssistant);
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !panel.hidden) closeAssistant();
+    });
+  })();
+  </script>
+
+</body>
+</html>
